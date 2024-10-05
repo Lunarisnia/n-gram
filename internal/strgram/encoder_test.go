@@ -46,4 +46,20 @@ func Test_EncodeNGram(t *testing.T) {
 			result,
 		)
 	})
+	t.Run("Test encode a pentagram", func(t *testing.T) {
+		result, err := Encode("FORMALITY", 5)
+		assert.Nil(t, err)
+		assert.Equal(t, [][]string{
+			{"", "F", "O", "R", "M"},
+			{"F", "O", "R", "M", "A"},
+			{"O", "R", "M", "A", "L"},
+			{"R", "M", "A", "L", "I"},
+			{"M", "A", "L", "I", "T"},
+			{"A", "L", "I", "T", "Y"},
+			{"L", "I", "T", "Y", ""},
+			{"I", "T", "Y", "", ""},
+			{"T", "Y", "", "", ""},
+			{"Y", "", "", "", ""},
+		}, result)
+	})
 }
