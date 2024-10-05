@@ -28,6 +28,9 @@ func Encode(text string, n int) ([][]string, error) {
 	ngramResult := make([][]string, 0)
 
 	stringBuf := make([]string, 0)
+	for range n {
+		stringBuf = append(stringBuf, "")
+	}
 	var insertBuffer func()
 	i := 0
 	insertBuffer = func() {
@@ -47,6 +50,9 @@ func Encode(text string, n int) ([][]string, error) {
 			}
 		}
 		insertBuffer()
+		if len(stringBuf) < n {
+			stringBuf = append(stringBuf, "")
+		}
 		ngramResult = append(ngramResult, stringBuf)
 	}
 
