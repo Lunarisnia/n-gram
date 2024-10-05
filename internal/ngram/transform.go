@@ -1,0 +1,61 @@
+package ngram
+
+import (
+	"errors"
+	"fmt"
+)
+
+// BIGRAM EXAMPLE
+// RESULT
+// _R, RE, ES, SU, UL, LT, T_
+
+// FORMALITY LEVEL
+// _F, FO, OR, RM, MA, AL, LI, IT, TY, Y<SP>, <SP>L, LE, EV, VE, EL, L_
+
+// TEXT
+// 0123
+// n = 2
+// Resulting Bigram:
+// _T, TE, EX, XT, T_
+// 00, 01, 12, 23, 3_
+
+func Encode(text string, n int) ([][]string, error) {
+	textLength := len(text)
+	if n > textLength {
+		return nil, errors.New("n cannot be larger than the text length: n < len(text)")
+	}
+
+	ngramResult := make([][]string, 0)
+
+	stringBuf := make([]string, 0)
+	var insertBuffer func()
+	i := 0
+	insertBuffer = func() {
+		if len(stringBuf) == n || i > textLength {
+			stringBuf = stringBuf[1:]
+		}
+		if i < textLength {
+			stringBuf = append(stringBuf, string(text[i]))
+		}
+		i++
+	}
+
+	for j := range textLength + 1 {
+		if n > 2 && j == 0 {
+			for range n - 2 {
+				insertBuffer()
+			}
+		}
+		insertBuffer()
+		ngramResult = append(ngramResult, stringBuf)
+	}
+
+	return ngramResult, nil
+}
+
+func dumpBuffer(stringBuf []rune) {
+	for _, r := range stringBuf {
+		fmt.Printf(" %s ", string(r))
+	}
+	fmt.Println()
+}
