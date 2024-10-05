@@ -1,4 +1,4 @@
-package ngram
+package strgram
 
 import (
 	"errors"
