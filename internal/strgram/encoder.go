@@ -3,6 +3,7 @@ package strgram
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 // BIGRAM EXAMPLE
@@ -26,6 +27,14 @@ func Encode(text string, n int) ([][]string, error) {
 	}
 
 	ngramResult := make([][]string, 0)
+
+	if n == 1 {
+		splitStr := strings.Split(text, "")
+		for _, str := range splitStr {
+			ngramResult = append(ngramResult, []string{str})
+		}
+		return ngramResult, nil
+	}
 
 	stringBuf := make([]string, 0)
 	for range n {

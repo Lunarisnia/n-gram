@@ -7,6 +7,11 @@ import (
 )
 
 func Test_EncodeNGram(t *testing.T) {
+	t.Run("Test encode a unigram", func(t *testing.T) {
+		result, err := Encode("TEXT", 1)
+		assert.Nil(t, err)
+		assert.Equal(t, [][]string{{"T"}, {"E"}, {"X"}, {"T"}}, result)
+	})
 	t.Run("Test encode a bigram", func(t *testing.T) {
 		result, err := Encode("TEXT", 2)
 		assert.Nil(t, err)
