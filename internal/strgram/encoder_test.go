@@ -17,7 +17,7 @@ func Test_EncodeNGram(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(
 			t,
-			[][]string{{"", "T"}, {"T", "E"}, {"E", "X"}, {"X", "T"}, {"T", ""}},
+			[][]string{{"_", "T"}, {"T", "E"}, {"E", "X"}, {"X", "T"}, {"T", "_"}},
 			result,
 		)
 	})
@@ -27,11 +27,11 @@ func Test_EncodeNGram(t *testing.T) {
 		assert.Equal(
 			t,
 			[][]string{
-				{"", "T", "E"},
+				{"_", "T", "E"},
 				{"T", "E", "X"},
 				{"E", "X", "T"},
-				{"X", "T", ""},
-				{"T", "", ""},
+				{"X", "T", "_"},
+				{"T", "_", "_"},
 			},
 			result,
 		)
@@ -42,11 +42,11 @@ func Test_EncodeNGram(t *testing.T) {
 		assert.Equal(
 			t,
 			[][]string{
-				{"", "T", "E", "X"},
+				{"_", "T", "E", "X"},
 				{"T", "E", "X", "T"},
-				{"E", "X", "T", ""},
-				{"X", "T", "", ""},
-				{"T", "", "", ""},
+				{"E", "X", "T", "_"},
+				{"X", "T", "_", "_"},
+				{"T", "_", "_", "_"},
 			},
 			result,
 		)
@@ -55,16 +55,16 @@ func Test_EncodeNGram(t *testing.T) {
 		result, err := Encode("FORMALITY", 5)
 		assert.Nil(t, err)
 		assert.Equal(t, [][]string{
-			{"", "F", "O", "R", "M"},
+			{"_", "F", "O", "R", "M"},
 			{"F", "O", "R", "M", "A"},
 			{"O", "R", "M", "A", "L"},
 			{"R", "M", "A", "L", "I"},
 			{"M", "A", "L", "I", "T"},
 			{"A", "L", "I", "T", "Y"},
-			{"L", "I", "T", "Y", ""},
-			{"I", "T", "Y", "", ""},
-			{"T", "Y", "", "", ""},
-			{"Y", "", "", "", ""},
+			{"L", "I", "T", "Y", "_"},
+			{"I", "T", "Y", "_", "_"},
+			{"T", "Y", "_", "_", "_"},
+			{"Y", "_", "_", "_", "_"},
 		}, result)
 	})
 }

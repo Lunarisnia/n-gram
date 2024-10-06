@@ -1,17 +1,16 @@
 package profiler
 
 import (
-	"slices"
 	"sort"
 )
 
 type TokenNode struct {
-	Token   []string
+	Token   string
 	Counter int
 	Rank    int
 }
 
-func NewTokenNode(token []string) *TokenNode {
+func NewTokenNode(token string) *TokenNode {
 	return &TokenNode{
 		Token:   token,
 		Counter: 1,
@@ -23,10 +22,9 @@ type HashMap struct {
 	Data map[int]*TokenNode
 }
 
-func convertToKey(token []string) int {
+func convertToKey(token string) int {
 	key := 0
-	for _, ch := range token {
-		r := rune(ch[0])
+	for _, r := range token {
 		key += int(r)
 	}
 	return key
@@ -38,11 +36,11 @@ func NewHashMap() *HashMap {
 	}
 }
 
-func (h *HashMap) InsertNode(token []string) {
+func (h *HashMap) InsertNode(token string) {
 	key := convertToKey(token)
 	newNode := NewTokenNode(token)
 	if node, exist := h.Data[key]; exist {
-		if slices.Equal(node.Token, token) {
+		if node.Token == token {
 			node.Counter++
 			return
 		}

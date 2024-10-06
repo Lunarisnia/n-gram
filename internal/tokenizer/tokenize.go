@@ -23,13 +23,13 @@ func padWithEmptySpace(token string, padAtBack bool) []string {
 	splitToken := strings.Split(token, "")
 	if padAtBack {
 		for range padLength {
-			splitToken = append(splitToken, "")
+			splitToken = append(splitToken, "_")
 		}
 		return splitToken
 	} else {
 		padding := make([]string, 0)
 		for range padLength {
-			padding = append(padding, "")
+			padding = append(padding, "_")
 		}
 		for _, r := range splitToken {
 			padding = append(padding, string(r))
