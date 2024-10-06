@@ -8,9 +8,7 @@ func Tokenize(sanitizedString string) ([][]string, error) {
 	for _, token := range rawTokens {
 		// NOTE: its 5 because we need to create pentagram for all text
 		if len(token) < 5 {
-			frontPad := padWithEmptySpace(token, false)
 			backPad := padWithEmptySpace(token, true)
-			paddedTokens = append(paddedTokens, frontPad)
 			paddedTokens = append(paddedTokens, backPad)
 		} else {
 			paddedTokens = append(paddedTokens, strings.Split(token, ""))
