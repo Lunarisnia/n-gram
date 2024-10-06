@@ -1,4 +1,4 @@
-package hasher
+package profiler
 
 import (
 	"testing"
@@ -19,5 +19,21 @@ func Test_Hash(t *testing.T) {
 		hashMap.InsertNode(tokens[2])
 		assert.Equal(t, 2, hashMap.Data[310].Counter)
 		assert.Equal(t, 1, hashMap.Data[312].Counter)
+	})
+
+	t.Run("Expect rank properly calculated", func(t *testing.T) {
+		hashMap := NewHashMap()
+		tokens := [][]string{
+			{"c", "a", "r"},
+			{"c", "a", "t"},
+			{"c", "a", "r"},
+		}
+		hashMap.InsertNode(tokens[0])
+		hashMap.InsertNode(tokens[1])
+		hashMap.InsertNode(tokens[2])
+
+		hashMap.CalculateAllRanks()
+		assert.Equal(t, 0, hashMap.Data[310].Rank)
+		assert.Equal(t, 1, hashMap.Data[312].Rank)
 	})
 }

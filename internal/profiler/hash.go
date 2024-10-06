@@ -1,16 +1,21 @@
-package hasher
+package profiler
 
-import "slices"
+import (
+	"slices"
+	"sort"
+)
 
 type TokenNode struct {
 	Token   []string
 	Counter int
+	Rank    int
 }
 
 func NewTokenNode(token []string) *TokenNode {
 	return &TokenNode{
 		Token:   token,
 		Counter: 1,
+		Rank:    0,
 	}
 }
 
@@ -39,6 +44,7 @@ func (h *HashMap) InsertNode(token []string) {
 	if node, exist := h.Data[key]; exist {
 		if slices.Equal(node.Token, token) {
 			node.Counter++
+			return
 		}
 		for {
 			key++
@@ -49,5 +55,18 @@ func (h *HashMap) InsertNode(token []string) {
 		}
 	} else {
 		h.Data[key] = newNode
+	}
+}
+
+func (h *HashMap) CalculateAllRanks() {
+	tokenNodes := make([]*TokenNode, 0)
+	for _, node := range h.Data {
+		tokenNodes = append(tokenNodes, node)
+	}
+	sort.Slice(tokenNodes, func(i, j int) bool {
+		return tokenNodes[i].Counter > tokenNodes[j].Counter
+	})
+	for i, node := range tokenNodes {
+		node.Rank = i
 	}
 }
