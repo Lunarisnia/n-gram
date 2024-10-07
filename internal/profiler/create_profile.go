@@ -57,6 +57,7 @@ func processDataset(dataset string) (*HashMap, error) {
 			// FIXME: I don't think I can mash all ngram together, it has to be kept separately
 			// NOTE: From what I think I understand I seems that this ngram has to be matched by the corresponding same size ngram
 			// NOTE: and from those 5 ngram the lowest are taken which mean each language has 5 chance to be the lowest
+			// NOTE: I don't think this matters
 			for _, gram := range ngram {
 				ngrams = append(ngrams, strings.Join(gram, ""))
 			}

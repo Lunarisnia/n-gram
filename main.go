@@ -17,7 +17,7 @@ func main() {
 		panic(err)
 	}
 
-	test := "Climate change poses a significant threat to global food security"
+	test := "Vuex sebuah framework web dev"
 	inputProfile, err := profiler.CreateProfileUsingRawData(test)
 	if err != nil {
 		panic(err)
@@ -52,4 +52,10 @@ func main() {
 	fmt.Println("Token: ", test)
 	fmt.Println("English Score: ", englishResult)
 	fmt.Println("Indonesian Score: ", indonesianResult)
+	fmt.Print("Verdict: ")
+	if englishResult < indonesianResult {
+		fmt.Println("English")
+	} else {
+		fmt.Println("Indonesian")
+	}
 }
